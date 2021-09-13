@@ -1,5 +1,6 @@
 package com.company;
 
+import db.EstoquesDB;
 import db.ProdutoDB;
 import db.UsuariosDB;
 import models.Admin;
@@ -18,6 +19,7 @@ public class Main {
 
     static ProdutoDB produtoDB = new ProdutoDB();
     static UsuariosDB usuariosDB = new UsuariosDB();
+    static EstoquesDB estoquesDB = new EstoquesDB();
 
     public static void main(String[] args) throws Exception {
 
@@ -30,6 +32,7 @@ public class Main {
             System.out.println("3 - CADASTRAR USUÁRIO ADMINISTRADOR");
             System.out.println("4 - CADASTRAR USUÁRIO CLIENTE");
             System.out.println("5 - LISTAR TODOS USUÁRIOS CADASTRADOS");
+            System.out.println("6 - CADASTRAR NOVO ESTOQUE DE PRODUTO");
             System.out.println("0 - SAIR");
 
 
@@ -73,11 +76,10 @@ public class Main {
             //System.out.println("____Data de Validade;" + novoProduto.getDataValidade());
             //System.out.println("==========================================================");
 
-            case 2:
-            {
-                List <Produto> listaDeProdutos = produtoDB.getProdutoList();
+            case 2: {
+                List<Produto> listaDeProdutos = produtoDB.getProdutoList();
 
-                for (Produto produto : listaDeProdutos){
+                for (Produto produto : listaDeProdutos) {
 
                     System.out.println("---->> ID" + produto.getId());
                     System.out.println("---->> Descrição: " + produto.getDescricao());
@@ -113,7 +115,7 @@ public class Main {
             }
 
             case 5: {
-                for(Usuario usuario : usuariosDB.getUsuarioList()){
+                for (Usuario usuario : usuariosDB.getUsuarioList()) {
                     System.out.println("==========================================================");
                     System.out.println("==============LISTANDO USUÁRIOS CADASTRADOS:==============");
                     System.out.println("==========================================================");
@@ -125,12 +127,22 @@ public class Main {
 
                 break;
             }
-
+            case 6: {
+                Scanner scanner = new Scanner(System.in);
+                System.out.println("==========================================================");
+                System.out.println("==============CADASTRANDO ESTOQUE DE PRODUTO:==============");
+                System.out.println("==========================================================");
+                System.out.print("QUAL O IDENTIFICADOR DO ESTOQUE: ");
+                String id = scanner.next();
+                System.out.print("QUAL O PRODUTO QUE SERÁ ADICIONADO NO ESTOQUE: ");
+                int produtoId = scanner.nextInt();
+                Produto produto = produtoDB.getProdutoPorId(produtoId);
+                break;
             }
 
-            }
 
+        }
 
-}
-
+    }
+    }
 
