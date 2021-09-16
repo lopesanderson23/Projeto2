@@ -1,12 +1,10 @@
 package com.company;
 
 import db.EstoquesDB;
-import db.ProdutoDB;
+import db.ProdutosDB;
+import db.ProdutosDB;
 import db.UsuariosDB;
-import models.Admin;
-import models.Cliente;
-import models.Produto;
-import models.Usuario;
+import models.*;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -17,7 +15,7 @@ import static java.util.Scanner.*;
 
 public class Main {
 
-    static ProdutoDB produtoDB = new ProdutoDB();
+    static ProdutosDB produtosDB= new ProdutosDB();
     static UsuariosDB usuariosDB = new UsuariosDB();
     static EstoquesDB estoquesDB = new EstoquesDB();
 
@@ -64,7 +62,7 @@ public class Main {
 
                 Produto novoProduto = new Produto(id, descricao, preco, dataValidade);
 
-                produtoDB.addNovoProduto(novoProduto);
+                produtosDB.addNovoProduto(novoProduto);
                 break;
 
             }
@@ -77,7 +75,7 @@ public class Main {
             //System.out.println("==========================================================");
 
             case 2: {
-                List<Produto> listaDeProdutos = produtoDB.getProdutoList();
+                List<Produto> listaDeProdutos = produtosDB.getProdutosList();
 
                 for (Produto produto : listaDeProdutos) {
 
@@ -136,7 +134,14 @@ public class Main {
                 String id = scanner.next();
                 System.out.print("QUAL O PRODUTO QUE SERÁ ADICIONADO NO ESTOQUE: ");
                 int produtoId = scanner.nextInt();
-                Produto produto = produtoDB.getProdutoPorId(produtoId);
+                Produto produto = produtosDB.getProdutoPorID(produtoId);
+                System.out.println("PRODUTO ID :" + produto.getId());
+                System.out.println("PRODUTO DESCRIÇÃO :" + produto.getDescricao());
+                System.out.println("TIPO :" + produto.getDataValidade());
+                System.out.print("QUAL A QUANTIDADE DE PRODUTOS A SER ADICIONADO NO ESTOQUE: ");
+                int quantidade = scanner.nextInt();
+                Estoque novoEstoque = new Estoque(id,produto,quantidade);
+                estoquesDB.addNovoEstoque(novoEstoque);
                 break;
             }
 
